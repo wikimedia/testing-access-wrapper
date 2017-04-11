@@ -1,0 +1,50 @@
+{
+	"name": "wikimedia/testing-access-wrapper",
+	"description": "A simple helper class to access non-public elements of a class when testing.",
+	"license": "GPL-2.0+",
+	"homepage": "https://www.mediawiki.org/wiki/Testing-access-wrapper",
+	"authors": [
+		{
+			"name": "Adam Roses Wight",
+			"email": "awight@wikimedia.org"
+		},
+		{
+			"name": "Brad Jorsch",
+			"email": "bjorsch@wikimedia.org"
+		},
+		{
+			"name": "Gergő Tisza",
+			"email": "gtisza@wikimedia.org"
+		}
+	],
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/"
+		]
+	},
+	"require": {
+		"php": ">=5.3.0"
+	},
+	"require-dev": {
+		"jakub-onderka/php-parallel-lint": "0.9.2",
+		"mediawiki/mediawiki-codesniffer": "0.7.2",
+		"phpunit/phpunit": "4.8.31"
+	},
+	"scripts": {
+		"lint": "parallel-lint . --exclude vendor",
+		"phpcs": "phpcs -p -s",
+		"fix": "phpcbf",
+		"phpunit": "phpunit $PHPUNIT_ARGS",
+		"coverage": "phpunit --coverage-html coverage $PHPUNIT_ARGS",
+		"test": [
+			"composer lint",
+			"composer phpcs",
+			"composer phpunit"
+		]
+	}
+}
