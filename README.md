@@ -11,7 +11,7 @@ The code was originally part of MediaWiki. See composer.json for a list of autho
 Usage
 -----
 
-```php
+<pre lang="php">
 use Wikimedia\TestingAccessWrapper;
 
 class NonPublic {
@@ -27,7 +27,7 @@ $classWrapper = TestingAccessWrapper::newFromClass( NonPublic::class );
 $wrapper->prop = 'foo';
 $wrapper->func();
 $classWrapper->staticFunc();
-```
+</pre>
 
 Running tests
 -------------
