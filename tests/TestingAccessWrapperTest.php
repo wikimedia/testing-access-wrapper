@@ -125,4 +125,3 @@ class TestingAccessWrapperTest extends \PHPUnit_Framework_TestCase {
 	}
 
 }
-

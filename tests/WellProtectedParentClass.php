@@ -17,4 +17,3 @@ class WellProtectedParentClass {
 		return $this->privateParentProperty;
 	}
 }
-
