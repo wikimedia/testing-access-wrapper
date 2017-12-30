@@ -44,9 +44,9 @@
 		"phpunit": "phpunit $PHPUNIT_ARGS",
 		"coverage": "phpunit --coverage-html coverage $PHPUNIT_ARGS",
 		"test": [
-			"composer lint",
-			"composer phpcs",
-			"composer phpunit"
+			"@composer lint",
+			"@composer phpcs",
+			"@composer phpunit"
 		]
 	}
 }
