@@ -2,7 +2,10 @@
 
 namespace Wikimedia;
 
-class TestingAccessWrapperTest extends \PHPUnit_Framework_TestCase {
+/**
+ * @covers \Wikimedia\TestingAccessWrapper
+ */
+class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	protected $raw;
 	protected $wrapped;
 	protected $wrappedStatic;
