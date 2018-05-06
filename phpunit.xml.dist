@@ -2,7 +2,7 @@
 	beStrictAboutTestsThatDoNotTestAnything="true"
 	beStrictAboutOutputDuringTests="true">
 	<testsuites>
-		<testsuite name="testing-access-wrapper tests">
+		<testsuite name="testing-access-wrapper Tests">
 			<directory>./tests</directory>
 		</testsuite>
 	</testsuites>

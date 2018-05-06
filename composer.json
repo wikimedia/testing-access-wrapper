@@ -2,7 +2,7 @@
 	"name": "wikimedia/testing-access-wrapper",
 	"description": "A simple helper class to access non-public elements of a class when testing.",
 	"license": "GPL-2.0-or-later",
-	"homepage": "https://www.mediawiki.org/wiki/Testing-access-wrapper",
+	"homepage": "https://www.mediawiki.org/wiki/testing-access-wrapper",
 	"authors": [
 		{
 			"name": "Adam Roses Wight",
@@ -18,9 +18,9 @@
 		}
 	],
 	"autoload": {
-		"classmap": [
-			"src/"
-		]
+		"psr-4": {
+			"Wikimedia\\": "src/"
+		}
 	},
 	"autoload-dev": {
 		"classmap": [
@@ -34,23 +34,22 @@
 		"jakub-onderka/php-parallel-lint": "1.0.0",
 		"jakub-onderka/php-console-highlighter": "0.3.2",
 		"mediawiki/mediawiki-codesniffer": "18.0.0",
-		"phpunit/phpunit": "4.8.36 || ^6.5",
-		"mediawiki/minus-x": "0.3.1"
+		"mediawiki/minus-x": "0.3.1",
+		"ockcyp/covers-validator": "0.5.1 || 0.6.1",
+		"phpunit/phpunit": "4.8.36 || ^6.5"
 	},
 	"scripts": {
-		"lint": "parallel-lint . --exclude vendor",
-		"phpcs": "phpcs -p -s",
-		"fix": [
-			"phpcbf",
-			"minus-x fix ."
-		],
-		"phpunit": "phpunit $PHPUNIT_ARGS",
-		"coverage": "phpunit --coverage-html coverage $PHPUNIT_ARGS",
 		"test": [
-			"@composer lint",
-			"@composer phpcs",
-			"@composer phpunit",
+			"parallel-lint . --exclude vendor",
+			"phpunit",
+			"covers-validator",
+			"phpcs -sp",
 			"minus-x check ."
+		],
+		"cover": "phpunit --coverage-html coverage",
+		"fix": [
+			"minus-x fix .",
+			"phpcbf"
 		]
 	}
 }
