@@ -31,14 +31,14 @@ class TestingAccessWrapper {
 	 * except that access restrictions can be ignored (protected and private methods and properties
 	 * are available for any caller).
 	 * @param object $object
-	 * @return TestingAccessWrapper
+	 * @return self
 	 * @throws InvalidArgumentException
 	 */
 	public static function newFromObject( $object ) {
 		if ( !is_object( $object ) ) {
 			throw new InvalidArgumentException( __METHOD__ . ' must be called with an object' );
 		}
-		$wrapper = new TestingAccessWrapper();
+		$wrapper = new self();
 		$wrapper->object = $object;
 		return $wrapper;
 	}
@@ -48,14 +48,14 @@ class TestingAccessWrapper {
 	 * Returns an object whose methods/properties will correspond to the
 	 * static methods/properties of the given class.
 	 * @param string $className
-	 * @return TestingAccessWrapper
+	 * @return self
 	 * @throws InvalidArgumentException
 	 */
 	public static function newFromClass( $className ) {
 		if ( !is_string( $className ) ) {
 			throw new InvalidArgumentException( __METHOD__ . ' must be called with a class name' );
 		}
-		$wrapper = new TestingAccessWrapper();
+		$wrapper = new self();
 		$wrapper->object = $className;
 		return $wrapper;
 	}
