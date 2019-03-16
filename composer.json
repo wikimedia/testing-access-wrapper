@@ -2,7 +2,7 @@
 	"name": "wikimedia/testing-access-wrapper",
 	"description": "A simple helper class to access non-public elements of a class when testing.",
 	"license": "GPL-2.0-or-later",
-	"homepage": "https://www.mediawiki.org/wiki/testing-access-wrapper",
+	"homepage": "https://www.mediawiki.org/wiki/Testing-access-wrapper",
 	"authors": [
 		{
 			"name": "Adam Roses Wight",

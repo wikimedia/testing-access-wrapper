@@ -13,7 +13,7 @@ use ReflectionProperty;
  * Circumvent access restrictions on object internals
  *
  * This can be helpful for writing tests that can probe object internals,
- * without having to modify the class under test to accomodate.
+ * without having to modify the class under test to accommodate.
  *
  * Wrap an object with private methods as follows:
  *    $title = TestingAccessWrapper::newFromObject( Title::newFromDBkey( $key ) );
@@ -106,6 +106,7 @@ class TestingAccessWrapper {
 	 * Return a method and make it accessible.
 	 * @param string $name
 	 * @return ReflectionMethod
+	 * @throws ReflectionException
 	 */
 	private function getMethod( $name ) {
 		$classReflection = new ReflectionClass( $this->object );
