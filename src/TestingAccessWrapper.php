@@ -91,6 +91,20 @@ class TestingAccessWrapper {
 				. ': Cannot get non-static property when wrapping static class' );
 		}
 
+		if ( $propertyReflection->isStatic() ) {
+			// https://bugs.php.net/bug.php?id=69804 - can't use getStaticPropertyValue() on
+			// non-public properties
+			$class = new ReflectionClass( $this->object );
+			$props = $class->getStaticProperties();
+
+			// Can't use isset() as it returns false for null values
+			if ( !array_key_exists( $name, $props ) ) {
+				throw new DomainException( __METHOD__ . ": class {$class->name} "
+					. "doesn't have static property '{$name}'" );
+			}
+			return $props[$name];
+		}
+
 		return $propertyReflection->getValue( $this->object );
 	}
 
