@@ -18,17 +18,13 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->wrappedStatic = TestingAccessWrapper::newFromClass( WellProtectedClass::class );
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 */
 	function testConstructorException() {
+		$this->expectException( \InvalidArgumentException::class );
 		TestingAccessWrapper::newFromObject( WellProtectedClass::class );
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 */
 	function testStaticConstructorException() {
+		$this->expectException( \InvalidArgumentException::class );
 		TestingAccessWrapper::newFromClass( new WellProtectedClass() );
 	}
 
@@ -42,10 +38,8 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( 'spp', $this->wrappedStatic->staticPrivateProperty );
 	}
 
-	/**
-	 * @expectedException \DomainException
-	 */
 	function testGetException() {
+		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->property;
 	}
 
@@ -83,17 +77,13 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->wrapped->staticPrivateProperty = 'spp';
 	}
 
-	/**
-	 * @expectedException \DomainException
-	 */
 	function testSetException() {
+		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->property = 1;
 	}
 
-	/**
-	 * @expectedException \ReflectionException
-	 */
 	function testMissingPropertyException() {
+		$this->expectException( \ReflectionException::class );
 		$this->wrapped->missingProperty = 1;
 	}
 
@@ -120,10 +110,8 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( 'two', $this->wrapped->whatSecondArg( 'one', 'two' ) );
 	}
 
-	/**
-	 * @expectedException \DomainException
-	 */
 	function testCallMethodException() {
+		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->incrementPropertyValue();
 	}
 
