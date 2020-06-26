@@ -38,6 +38,22 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( 'spp', $this->wrappedStatic->staticPrivateProperty );
 	}
 
+	/** @dataProvider constantProvider */
+	function testConstant( $expected, $constName ) {
+		$this->assertSame(
+			$expected,
+			TestingAccessWrapper::constant( WellProtectedClass::class, $constName )
+		);
+	}
+
+	public function constantProvider() {
+		return [
+			[ 'constant', 'CONSTANT' ],
+			[ 'private constant', 'PRIVATE_CONSTANT' ],
+			[ 'parent constant', 'PARENT_CONSTANT' ],
+		];
+	}
+
 	function testGetException() {
 		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->property;

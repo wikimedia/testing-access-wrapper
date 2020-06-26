@@ -6,6 +6,9 @@ class WellProtectedClass extends WellProtectedParentClass {
 	protected static $staticProperty = 'sp';
 	private static $staticPrivateProperty = 'spp';
 
+	protected const CONSTANT = 'constant';
+	private const PRIVATE_CONSTANT = 'private constant';
+
 	protected $property;
 	private $privateProperty;
 

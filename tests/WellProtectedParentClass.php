@@ -5,6 +5,8 @@ namespace Wikimedia;
 class WellProtectedParentClass {
 	private $privateParentProperty;
 
+	private const PARENT_CONSTANT = 'parent constant';
+
 	public function __construct() {
 		$this->privateParentProperty = 9000;
 	}

@@ -21,6 +21,9 @@ use ReflectionProperty;
  * You can access private and protected instance methods and variables:
  *    $formatter = $title->getTitleFormatter();
  *
+ * You can access private and protected constants:
+ *    $value = TestingAccessWrapper::constant( Foo::class, 'FOO_CONSTANT' );
+ *
  */
 class TestingAccessWrapper {
 	/** @var mixed The object, or the class name for static-only access */
@@ -58,6 +61,25 @@ class TestingAccessWrapper {
 		$wrapper = new self();
 		$wrapper->object = $className;
 		return $wrapper;
+	}
+
+	/**
+	 * Allow access to non-public constants of the class.
+	 * @param class-string $className
+	 * @param string $constantName
+	 * @return mixed
+	 */
+	public static function constant( $className, $constantName ) {
+		$classReflection = new ReflectionClass( $className );
+		// getConstant() returns `false` if the constant is defined in
+		// a parent class; this works more like ReflectionClass::getMethod()
+		while ( !$classReflection->hasConstant( $constantName ) ) {
+			$classReflection = $classReflection->getParentClass();
+			if ( !$classReflection ) {
+				throw new \ReflectionException( 'constant not present' );
+			}
+		}
+		return $classReflection->getConstant( $constantName );
 	}
 
 	public function __call( $method, $args ) {
