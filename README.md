@@ -11,7 +11,7 @@ The code was originally part of MediaWiki. See composer.json for a list of autho
 Usage
 -----
 
-<pre lang="php">
+```php
 use Wikimedia\TestingAccessWrapper;
 
 class NonPublic {
@@ -30,7 +30,7 @@ $wrapper->func();
 $classWrapper->staticFunc();
 
 $value = TestingAccessWrapper::constant( NonPublic::class, 'CONSTANT' );
-</pre>
+```
 
 Running tests
 -------------
