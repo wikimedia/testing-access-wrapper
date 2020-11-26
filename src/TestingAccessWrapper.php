@@ -82,6 +82,11 @@ class TestingAccessWrapper {
 		return $classReflection->getConstant( $constantName );
 	}
 
+	/**
+	 * @param string $method
+	 * @param array $args
+	 * @return mixed
+	 */
 	public function __call( $method, $args ) {
 		$methodReflection = $this->getMethod( $method );
 
@@ -94,6 +99,10 @@ class TestingAccessWrapper {
 			$args );
 	}
 
+	/**
+	 * @param string $name
+	 * @param mixed $value
+	 */
 	public function __set( $name, $value ) {
 		$propertyReflection = $this->getProperty( $name );
 
@@ -105,6 +114,10 @@ class TestingAccessWrapper {
 		$propertyReflection->setValue( $this->object, $value );
 	}
 
+	/**
+	 * @param string $name Field name
+	 * @return mixed
+	 */
 	public function __get( $name ) {
 		$propertyReflection = $this->getProperty( $name );
 

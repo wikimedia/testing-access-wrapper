@@ -10,7 +10,7 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	protected $wrapped;
 	protected $wrappedStatic;
 
-	function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->raw = new WellProtectedClass();
@@ -18,17 +18,17 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->wrappedStatic = TestingAccessWrapper::newFromClass( WellProtectedClass::class );
 	}
 
-	function testConstructorException() {
+	public function testConstructorException() {
 		$this->expectException( \InvalidArgumentException::class );
 		TestingAccessWrapper::newFromObject( WellProtectedClass::class );
 	}
 
-	function testStaticConstructorException() {
+	public function testStaticConstructorException() {
 		$this->expectException( \InvalidArgumentException::class );
 		TestingAccessWrapper::newFromClass( new WellProtectedClass() );
 	}
 
-	function testGetProperty() {
+	public function testGetProperty() {
 		$this->assertSame( 1, $this->wrapped->property );
 		$this->assertSame( 42, $this->wrapped->privateProperty );
 		$this->assertSame( 9000, $this->wrapped->privateParentProperty );
@@ -39,7 +39,7 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/** @dataProvider constantProvider */
-	function testConstant( $expected, $constName ) {
+	public function testConstant( $expected, $constName ) {
 		$this->assertSame(
 			$expected,
 			TestingAccessWrapper::constant( WellProtectedClass::class, $constName )
@@ -54,12 +54,12 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
-	function testGetException() {
+	public function testGetException() {
 		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->property;
 	}
 
-	function testSetProperty() {
+	public function testSetProperty() {
 		$this->wrapped->property = 10;
 		$this->assertSame( 10, $this->wrapped->property );
 		$this->assertSame( 10, $this->raw->getProperty() );
@@ -93,17 +93,17 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->wrapped->staticPrivateProperty = 'spp';
 	}
 
-	function testSetException() {
+	public function testSetException() {
 		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->property = 1;
 	}
 
-	function testMissingPropertyException() {
+	public function testMissingPropertyException() {
 		$this->expectException( \ReflectionException::class );
 		$this->wrapped->missingProperty = 1;
 	}
 
-	function testCallMethod() {
+	public function testCallMethod() {
 		$this->wrapped->incrementPropertyValue();
 		$this->assertSame( 2, $this->wrapped->property );
 		$this->assertSame( 2, $this->raw->getProperty() );
@@ -122,11 +122,11 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( 'spm', $this->wrappedStatic->staticPrivateMethod() );
 	}
 
-	function testCallMethodTwoArgs() {
+	public function testCallMethodTwoArgs() {
 		$this->assertSame( 'two', $this->wrapped->whatSecondArg( 'one', 'two' ) );
 	}
 
-	function testCallMethodException() {
+	public function testCallMethodException() {
 		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->incrementPropertyValue();
 	}

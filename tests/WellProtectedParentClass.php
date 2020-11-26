@@ -3,6 +3,8 @@
 namespace Wikimedia;
 
 class WellProtectedParentClass {
+
+	/** @var int */
 	private $privateParentProperty;
 
 	private const PARENT_CONSTANT = 'parent constant';
@@ -15,6 +17,9 @@ class WellProtectedParentClass {
 		$this->privateParentProperty++;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getPrivateParentProperty() {
 		return $this->privateParentProperty;
 	}
