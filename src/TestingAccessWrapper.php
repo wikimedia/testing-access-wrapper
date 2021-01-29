@@ -76,7 +76,7 @@ class TestingAccessWrapper {
 		while ( !$classReflection->hasConstant( $constantName ) ) {
 			$classReflection = $classReflection->getParentClass();
 			if ( !$classReflection ) {
-				throw new \ReflectionException( 'constant not present' );
+				throw new ReflectionException( 'constant not present' );
 			}
 		}
 		return $classReflection->getConstant( $constantName );
