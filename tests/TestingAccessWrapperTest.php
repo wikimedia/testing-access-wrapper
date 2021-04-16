@@ -54,9 +54,19 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
-	public function testGetException() {
+	public function testConstantException() {
+		$this->expectException( \ReflectionException::class );
+		TestingAccessWrapper::constant( WellProtectedClass::class, 'NONEXISTENT_CONTENT' );
+	}
+
+	public function testGetException_nonStatic() {
 		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->property;
+	}
+
+	public function testGetException_missing() {
+		$this->expectException( \DomainException::class );
+		$this->wrappedStatic->privateParentStaticProperty;
 	}
 
 	public function testSetProperty() {

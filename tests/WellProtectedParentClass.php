@@ -7,6 +7,8 @@ class WellProtectedParentClass {
 	/** @var int */
 	private $privateParentProperty;
 
+	private static $privateParentStaticProperty;
+
 	private const PARENT_CONSTANT = 'parent constant';
 
 	public function __construct() {
