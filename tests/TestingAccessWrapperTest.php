@@ -10,7 +10,7 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	protected $wrapped;
 	protected $wrappedStatic;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->raw = new WellProtectedClass();
