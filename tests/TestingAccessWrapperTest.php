@@ -46,7 +46,7 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function constantProvider() {
+	public static function constantProvider() {
 		return [
 			[ 'constant', 'CONSTANT' ],
 			[ 'private constant', 'PRIVATE_CONSTANT' ],
