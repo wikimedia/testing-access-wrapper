@@ -20,11 +20,13 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 
 	public function testConstructorException() {
 		$this->expectException( \InvalidArgumentException::class );
+		// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
 		TestingAccessWrapper::newFromObject( WellProtectedClass::class );
 	}
 
 	public function testStaticConstructorException() {
 		$this->expectException( \InvalidArgumentException::class );
+		// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
 		TestingAccessWrapper::newFromClass( new WellProtectedClass() );
 	}
 

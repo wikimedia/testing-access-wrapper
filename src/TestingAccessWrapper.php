@@ -50,7 +50,7 @@ class TestingAccessWrapper {
 	 * Allow access to non-public static methods and properties of the class.
 	 * Returns an object whose methods/properties will correspond to the
 	 * static methods/properties of the given class.
-	 * @param string $className
+	 * @param class-string $className
 	 * @return self
 	 * @throws InvalidArgumentException
 	 */
