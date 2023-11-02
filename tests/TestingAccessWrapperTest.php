@@ -61,6 +61,26 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 		TestingAccessWrapper::constant( WellProtectedClass::class, 'NONEXISTENT_CONTENT' );
 	}
 
+	public function testConstructException() {
+		$this->expectException( \Error::class );
+		// @phan-suppress-next-line PhanAccessMethodProtected
+		return new WellProtectedParentClass();
+	}
+
+	public function testConstruct() {
+		$parent = TestingAccessWrapper::construct( WellProtectedParentClass::class );
+		$this->assertInstanceOf( WellProtectedParentClass::class, $parent );
+		$wrapped = TestingAccessWrapper::newFromObject( $parent );
+		$this->assertSame( 9000, $wrapped->privateParentProperty );
+	}
+
+	public function testConstructArg() {
+		$parent = TestingAccessWrapper::construct( WellProtectedParentClass::class, 1234 );
+		$this->assertInstanceOf( WellProtectedParentClass::class, $parent );
+		$wrapped = TestingAccessWrapper::newFromObject( $parent );
+		$this->assertSame( 1234, $wrapped->privateParentProperty );
+	}
+
 	public function testGetException_nonStatic() {
 		$this->expectException( \DomainException::class );
 		$this->wrappedStatic->property;

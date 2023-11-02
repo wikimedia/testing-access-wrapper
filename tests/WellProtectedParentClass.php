@@ -11,8 +11,8 @@ class WellProtectedParentClass {
 
 	private const PARENT_CONSTANT = 'parent constant';
 
-	public function __construct() {
-		$this->privateParentProperty = 9000;
+	protected function __construct( $parentProperty = 9000 ) {
+		$this->privateParentProperty = $parentProperty;
 	}
 
 	private function incrementPrivateParentPropertyValue() {
