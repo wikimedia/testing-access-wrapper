@@ -127,7 +127,12 @@ class TestingAccessWrapper {
 				. ': Cannot set non-static property when wrapping static class' );
 		}
 
-		$propertyReflection->setValue( $this->object, $value );
+		if ( $this->isStatic() ) {
+			$class = new ReflectionClass( $this->object );
+			$class->setStaticPropertyValue( $name, $value );
+		} else {
+			$propertyReflection->setValue( $this->object, $value );
+		}
 	}
 
 	/**
