@@ -2,10 +2,16 @@
 
 namespace Wikimedia;
 
+use DomainException;
+use Error;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
+use ReflectionException;
+
 /**
  * @covers \Wikimedia\TestingAccessWrapper
  */
-class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
+class TestingAccessWrapperTest extends TestCase {
 	protected $raw;
 	protected $wrapped;
 	protected $wrappedStatic;
@@ -19,13 +25,13 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testConstructorException() {
-		$this->expectException( \InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
 		TestingAccessWrapper::newFromObject( WellProtectedClass::class );
 	}
 
 	public function testStaticConstructorException() {
-		$this->expectException( \InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
 		TestingAccessWrapper::newFromClass( new WellProtectedClass() );
 	}
@@ -57,12 +63,12 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testConstantException() {
-		$this->expectException( \ReflectionException::class );
+		$this->expectException( ReflectionException::class );
 		TestingAccessWrapper::constant( WellProtectedClass::class, 'NONEXISTENT_CONTENT' );
 	}
 
 	public function testConstructException() {
-		$this->expectException( \Error::class );
+		$this->expectException( Error::class );
 		// @phan-suppress-next-line PhanAccessMethodProtected
 		return new WellProtectedParentClass();
 	}
@@ -82,12 +88,12 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetException_nonStatic() {
-		$this->expectException( \DomainException::class );
+		$this->expectException( DomainException::class );
 		$this->wrappedStatic->property;
 	}
 
 	public function testGetException_missing() {
-		$this->expectException( \DomainException::class );
+		$this->expectException( DomainException::class );
 		$this->wrappedStatic->privateParentStaticProperty;
 	}
 
@@ -126,12 +132,12 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testSetException() {
-		$this->expectException( \DomainException::class );
+		$this->expectException( DomainException::class );
 		$this->wrappedStatic->property = 1;
 	}
 
 	public function testMissingPropertyException() {
-		$this->expectException( \ReflectionException::class );
+		$this->expectException( ReflectionException::class );
 		$this->wrapped->missingProperty = 1;
 	}
 
@@ -159,7 +165,7 @@ class TestingAccessWrapperTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testCallMethodException() {
-		$this->expectException( \DomainException::class );
+		$this->expectException( DomainException::class );
 		$this->wrappedStatic->incrementPropertyValue();
 	}
 
