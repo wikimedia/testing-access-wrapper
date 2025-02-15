@@ -3,20 +3,20 @@
 namespace Wikimedia;
 
 class WellProtectedClass extends WellProtectedParentClass {
-	protected static $staticProperty = 'sp';
-	private static $staticPrivateProperty = 'spp';
+	protected static string $staticProperty = 'sp';
+	private static string $staticPrivateProperty = 'spp';
 
 	protected const CONSTANT = 'constant';
 	private const PRIVATE_CONSTANT = 'private constant';
 
-	protected $property;
-	private $privateProperty;
+	protected int $property;
+	private int $privateProperty;
 
-	protected static function staticMethod() {
+	protected static function staticMethod(): string {
 		return 'sm';
 	}
 
-	private static function staticPrivateMethod() {
+	private static function staticPrivateMethod(): string {
 		return 'spm';
 	}
 
@@ -34,15 +34,15 @@ class WellProtectedClass extends WellProtectedParentClass {
 		$this->privateProperty++;
 	}
 
-	public function getProperty() {
+	public function getProperty(): int {
 		return $this->property;
 	}
 
-	public function getPrivateProperty() {
+	public function getPrivateProperty(): int {
 		return $this->privateProperty;
 	}
 
-	protected function whatSecondArg( $a, $b = false ) {
+	protected function whatSecondArg( string $a, string $b ): string {
 		return $b;
 	}
 }

@@ -12,8 +12,11 @@ use ReflectionException;
  * @covers \Wikimedia\TestingAccessWrapper
  */
 class TestingAccessWrapperTest extends TestCase {
+	/** @var WellProtectedClass */
 	protected $raw;
+	/** @var TestingAccessWrapper */
 	protected $wrapped;
+	/** @var TestingAccessWrapper */
 	protected $wrappedStatic;
 
 	protected function setUp(): void {
