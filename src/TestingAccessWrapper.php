@@ -207,7 +207,7 @@ class TestingAccessWrapper {
 				}
 				try {
 					$propertyReflection = $classReflection->getProperty( $name );
-				} catch ( ReflectionException $ex2 ) {
+				} catch ( ReflectionException ) {
 					continue;
 				}
 				if ( $propertyReflection->isPrivate() ) {
