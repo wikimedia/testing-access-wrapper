@@ -23,7 +23,6 @@ use ReflectionProperty;
  *
  * You can access private and protected constants:
  *    $value = TestingAccessWrapper::constant( Foo::class, 'FOO_CONSTANT' );
- *
  */
 class TestingAccessWrapper {
 	/** @var mixed The object, or the class name for static-only access */
