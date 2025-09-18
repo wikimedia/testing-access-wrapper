@@ -83,10 +83,11 @@ class TestingAccessWrapper {
 
 	/**
 	 * Allow constructing a class with a non-public constructor.
+	 *
+	 * @template T
 	 * @param class-string<T> $className
 	 * @param mixed ...$args
 	 * @return T
-	 * @phan-template T
 	 */
 	public static function construct( string $className, ...$args ) {
 		$classReflection = new ReflectionClass( $className );
