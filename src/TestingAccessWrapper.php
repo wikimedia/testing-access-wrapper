@@ -92,7 +92,6 @@ class TestingAccessWrapper {
 	public static function construct( string $className, ...$args ) {
 		$classReflection = new ReflectionClass( $className );
 		$constructor = $classReflection->getConstructor();
-		$constructor->setAccessible( true );
 		$object = $classReflection->newInstanceWithoutConstructor();
 		$constructor->invokeArgs( $object, $args );
 		return $object;
@@ -181,7 +180,6 @@ class TestingAccessWrapper {
 	private function getMethod( $name ) {
 		$classReflection = new ReflectionClass( $this->object );
 		$methodReflection = $classReflection->getMethod( $name );
-		$methodReflection->setAccessible( true );
 		return $methodReflection;
 	}
 
