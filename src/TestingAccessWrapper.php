@@ -217,7 +217,6 @@ class TestingAccessWrapper {
 				}
 			}
 		}
-		$propertyReflection->setAccessible( true );
 		return $propertyReflection;
 	}
 }
