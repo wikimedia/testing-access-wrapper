@@ -1,23 +1,21 @@
 <?php
+declare( strict_types = 1 );
 
 namespace Wikimedia;
 
 use DomainException;
 use Error;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
+use TypeError;
 
 /**
  * @covers \Wikimedia\TestingAccessWrapper
  */
 class TestingAccessWrapperTest extends TestCase {
-	/** @var WellProtectedClass */
-	protected $raw;
-	/** @var TestingAccessWrapper */
-	protected $wrapped;
-	/** @var TestingAccessWrapper */
-	protected $wrappedStatic;
+	protected WellProtectedClass $raw;
+	protected TestingAccessWrapper $wrapped;
+	protected TestingAccessWrapper $wrappedStatic;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -27,19 +25,19 @@ class TestingAccessWrapperTest extends TestCase {
 		$this->wrappedStatic = TestingAccessWrapper::newFromClass( WellProtectedClass::class );
 	}
 
-	public function testConstructorException() {
-		$this->expectException( InvalidArgumentException::class );
-		// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
+	public function testConstructorException(): void {
+		$this->expectException( TypeError::class );
+		// @phan-suppress-next-line PhanTypeMismatchArgumentReal
 		TestingAccessWrapper::newFromObject( WellProtectedClass::class );
 	}
 
-	public function testStaticConstructorException() {
-		$this->expectException( InvalidArgumentException::class );
-		// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
+	public function testStaticConstructorException(): void {
+		$this->expectException( TypeError::class );
+		// @phan-suppress-next-line PhanTypeMismatchArgumentReal
 		TestingAccessWrapper::newFromClass( new WellProtectedClass() );
 	}
 
-	public function testGetProperty() {
+	public function testGetProperty(): void {
 		$this->assertSame( 1, $this->wrapped->property );
 		$this->assertSame( 42, $this->wrapped->privateProperty );
 		$this->assertSame( 9000, $this->wrapped->privateParentProperty );
@@ -50,14 +48,14 @@ class TestingAccessWrapperTest extends TestCase {
 	}
 
 	/** @dataProvider constantProvider */
-	public function testConstant( $expected, $constName ) {
+	public function testConstant( string $expected, string $constName ): void {
 		$this->assertSame(
 			$expected,
 			TestingAccessWrapper::constant( WellProtectedClass::class, $constName )
 		);
 	}
 
-	public static function constantProvider() {
+	public static function constantProvider(): iterable {
 		return [
 			[ 'constant', 'CONSTANT' ],
 			[ 'private constant', 'PRIVATE_CONSTANT' ],
@@ -65,42 +63,42 @@ class TestingAccessWrapperTest extends TestCase {
 		];
 	}
 
-	public function testConstantException() {
+	public function testConstantException(): void {
 		$this->expectException( ReflectionException::class );
 		TestingAccessWrapper::constant( WellProtectedClass::class, 'NONEXISTENT_CONTENT' );
 	}
 
-	public function testConstructException() {
+	public function testConstructException(): void {
 		$this->expectException( Error::class );
-		// @phan-suppress-next-line PhanAccessMethodProtected
-		return new WellProtectedParentClass();
+		// @phan-suppress-next-line PhanAccessMethodProtected,PhanNoopNew
+		new WellProtectedParentClass();
 	}
 
-	public function testConstruct() {
+	public function testConstruct(): void {
 		$parent = TestingAccessWrapper::construct( WellProtectedParentClass::class );
 		$this->assertInstanceOf( WellProtectedParentClass::class, $parent );
 		$wrapped = TestingAccessWrapper::newFromObject( $parent );
 		$this->assertSame( 9000, $wrapped->privateParentProperty );
 	}
 
-	public function testConstructArg() {
+	public function testConstructArg(): void {
 		$parent = TestingAccessWrapper::construct( WellProtectedParentClass::class, 1234 );
 		$this->assertInstanceOf( WellProtectedParentClass::class, $parent );
 		$wrapped = TestingAccessWrapper::newFromObject( $parent );
 		$this->assertSame( 1234, $wrapped->privateParentProperty );
 	}
 
-	public function testGetException_nonStatic() {
+	public function testGetException_nonStatic(): void {
 		$this->expectException( DomainException::class );
 		$this->wrappedStatic->property;
 	}
 
-	public function testGetException_missing() {
+	public function testGetException_missing(): void {
 		$this->expectException( DomainException::class );
 		$this->wrappedStatic->privateParentStaticProperty;
 	}
 
-	public function testSetProperty() {
+	public function testSetProperty(): void {
 		$this->wrapped->property = 10;
 		$this->assertSame( 10, $this->wrapped->property );
 		$this->assertSame( 10, $this->raw->getProperty() );
@@ -134,17 +132,17 @@ class TestingAccessWrapperTest extends TestCase {
 		$this->wrapped->staticPrivateProperty = 'spp';
 	}
 
-	public function testSetException() {
+	public function testSetException(): void {
 		$this->expectException( DomainException::class );
 		$this->wrappedStatic->property = 1;
 	}
 
-	public function testMissingPropertyException() {
+	public function testMissingPropertyException(): void {
 		$this->expectException( ReflectionException::class );
 		$this->wrapped->missingProperty = 1;
 	}
 
-	public function testCallMethod() {
+	public function testCallMethod(): void {
 		$this->wrapped->incrementPropertyValue();
 		$this->assertSame( 2, $this->wrapped->property );
 		$this->assertSame( 2, $this->raw->getProperty() );
@@ -163,11 +161,11 @@ class TestingAccessWrapperTest extends TestCase {
 		$this->assertSame( 'spm', $this->wrappedStatic->staticPrivateMethod() );
 	}
 
-	public function testCallMethodTwoArgs() {
+	public function testCallMethodTwoArgs(): void {
 		$this->assertSame( 'two', $this->wrapped->whatSecondArg( 'one', 'two' ) );
 	}
 
-	public function testCallMethodException() {
+	public function testCallMethodException(): void {
 		$this->expectException( DomainException::class );
 		$this->wrappedStatic->incrementPropertyValue();
 	}

@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 namespace Wikimedia;
 
@@ -26,11 +27,11 @@ class WellProtectedClass extends WellProtectedParentClass {
 		$this->privateProperty = 42;
 	}
 
-	protected function incrementPropertyValue() {
+	protected function incrementPropertyValue(): void {
 		$this->property++;
 	}
 
-	private function incrementPrivatePropertyValue() {
+	private function incrementPrivatePropertyValue(): void {
 		$this->privateProperty++;
 	}
 
